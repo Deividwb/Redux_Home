@@ -5,25 +5,26 @@ import {MdFlightTakeoff} from 'react-icons/md';
 import './styles.css';
 
 export default function Home() {
+const dispatch = useDispatch();
 const [trips,setTrips] = useState([]);
 
 useEffect(()=>{
 
   async function loadApi(){
 
-    const dispatch = useDispatch;
+   
     const response = await api.get('trips');
     setTrips(response.data);    
   }  
   loadApi();
 },[]);
 
-//function handleAdd(trip) {
-  //dispatch({
-    //type: 'ADD_RESERVE',
-   //trip
-  //});
-//}
+function handleAdd(trip) {
+  dispatch({
+    type: 'ADD_RESERVE',
+    trip    
+  }); 
+}
 
  return (
    <div>
@@ -37,7 +38,7 @@ useEffect(()=>{
 
              <button
              type="button"
-             onClick={""}
+             onClick={()=> handleAdd(trip)}
              >
                <div>
                  <MdFlightTakeoff size={16} color="#fff"/>
